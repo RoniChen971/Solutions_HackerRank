@@ -1,0 +1,91 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.*;
+import java.util.*;
+
+public class Student {
+    public static void main(String[] args) {
+        List<String> getInput=new ArrayList<>();
+       Scanner scan=new Scanner(System.in);
+
+        int max=scan.nextInt();
+
+        for ( int i=0; i<max; i++ ){
+            getInput.add(scan.nextLine());
+        }
+        List<Student> get;
+        get =getStudents(getInput);
+        for (int i =0; i<get.size();i++){
+            System.out.println(get.get(i).getName());
+        }
+    }
+
+        private int _id;
+        private String _name;
+        private double _cgpa;
+
+        public Student(int id, String name, double cgpa){
+            _id=id;
+            _name=name;
+            _cgpa=cgpa;
+        }
+        public int getID(){
+            return _id;
+        }
+        public String getName(){
+            return _name;
+        }
+
+    public double getCGPA(){
+            return _cgpa;
+        }
+        public static List<Student> getStudents(List<String> events){
+            double cgpa = 0;
+            int id=0;
+            List<Student>stud= new ArrayList<>();
+            for (int j=1; j<events.size();j++) {
+                String s = events.get(j);
+            if(s.startsWith("ENTER ")){
+                s=s.substring(6);
+                int from=s.indexOf(' ');
+                String name=s.substring(0,from);
+                s= s.substring(from);
+                from=s.indexOf(" ");
+                    while (Character.isSpaceChar(s.charAt(0)))
+                        s=s.substring(1);
+                    if(Character.isDigit(s.charAt(0))){
+                        from=s.indexOf(' ');
+                        String temp= s.substring(0,from);
+                        cgpa =temp.charAt(0);
+                        if(Character.isDigit(s.charAt(2)))
+                            cgpa=cgpa+ temp.charAt(2)/10;
+                        if(Character.isDigit(s.charAt(3))) {
+                            cgpa = cgpa + (double)(temp.charAt(3))/100;
+                            s = s.substring(4);
+                        }
+                            else s=s.substring(3);
+                        while (Character.isSpaceChar(s.charAt(0)))
+                            s=s.substring(1);
+                        if(Character.isDigit(s.charAt(0)))
+                            id =(int)(s.charAt(0))*10;
+                        if(Character.isDigit(s.charAt(1)))
+                            id=id+(int)(s.charAt(1));
+                    }
+                    System.out.println(name);
+                stud.add(new Student(id ,name, cgpa));
+            }
+            }
+            System.out.println("finish input");
+
+            stud.sort(Comparator.comparing(Student::getCGPA).reversed()
+                            .thenComparing(Student::getName)
+                            .thenComparing(Student::getID)
+            );
+        return stud;
+        }
+
+
+    }
+
+
