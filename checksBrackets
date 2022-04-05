@@ -1,0 +1,80 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Result {
+    public static void main(String[] args) {
+
+     String s= checksBrackets("{{{}}}ndbsjbfhjdsjb()");
+     System.out.println(s);
+        }
+    public static String checksBrackets(String s){
+
+        final char BIG_BRACKET_OPEN ='{';
+        final   char  BIG_BRACKET_CLOSE='}';
+        final  char SMALE_BRACKET_OPEN ='(';
+        final  char SMALE_BRACKET_CLOSE=')';
+        final  char SQUARE_BRACKET_OPEN='[';
+        final char SQUARE_BRACKET_CLOSE=']';
+        char [] ret= new char[s.length()];
+        int index=0;
+        int count=0;
+            int i=0;
+        while ( i<s.length()){
+            if(s.charAt(i)!=BIG_BRACKET_OPEN &&
+            s.charAt(i)!=  BIG_BRACKET_CLOSE &&
+            s.charAt(i)!=SMALE_BRACKET_OPEN &&
+            s.charAt(i)!= SMALE_BRACKET_CLOSE &&
+            s.charAt(i)!= SQUARE_BRACKET_OPEN &&
+            s.charAt(i)!=SQUARE_BRACKET_CLOSE )
+                i++;
+            else if(s.charAt(i)==BIG_BRACKET_OPEN)
+            {
+               ret[index]=s.charAt(i);
+               index++;
+                count++;
+               i++;
+            }
+            else if (s.charAt(i)==SMALE_BRACKET_OPEN) {
+                ret[index]=s.charAt(i);
+                index++;
+                count++;
+                i++;
+
+            }
+            else if(s.charAt(i)==SQUARE_BRACKET_OPEN) {
+                ret[index]=s.charAt(i);
+                index++;
+                count++;
+            }
+            else if(index-1 >=0) {
+                if (s.charAt(i) == BIG_BRACKET_CLOSE
+                        && ret[index - 1] == BIG_BRACKET_OPEN) {
+                    index--;
+                    count--;
+                    i++;
+                } else if (s.charAt(i) == SMALE_BRACKET_CLOSE
+                        && ret[index - 1] == SMALE_BRACKET_OPEN) {
+                    index--;
+                    count--;
+                    i++;
+                } else if (s.charAt(i) == SQUARE_BRACKET_CLOSE
+                        && ret[index - 1] == SQUARE_BRACKET_OPEN) {
+                    index--;
+                    count--;
+                    i++;
+                }
+            }else  return "Error";
+
+        }
+
+            if(count< 0) {
+                System.out.println("We have a problem");
+                return "Error";
+            }
+        System.out.println("perfect");
+        return "perfect";
+}
+
+
+}
