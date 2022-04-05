@@ -1,0 +1,45 @@
+package com.company;
+import java.io.*;
+import java.util.*;
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("The win is: " + String.valueOf(findTheExit()));
+    }
+
+    public static int findTheExit() {
+        return findExit();
+    }
+
+    private static int findExit() {
+        Scanner scan = new Scanner(System.in);
+        int boot = scan.nextInt();
+        boolean find = false;
+        char[][] arr = new char[3][3];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                arr[i][j] = (char) scan.nextByte();
+                if (arr[i][j] == 'e')
+                    find = true;
+            }
+        }
+        if (find)
+            return (boot);
+        else {
+            if (arr[0][1] == '-') {
+                System.out.println("up");
+                return faindExit();
+            } else if (arr[1][0] == '-') {
+                System.out.println("left");
+                return faindExit();
+            } else if (arr[2][1] == '-') {
+                System.out.println("down");
+                return faindExit();
+            } else if (arr[1][2] == '-') {
+                System.out.println("right");
+                return faindExit();
+            }
+        }
+        return 0;
+    }
+}
